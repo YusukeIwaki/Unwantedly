@@ -1,15 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionModeOverlay">true</item>
 
         <item name="colorPrimary">@color/cw_blue</item>
         <item name="colorPrimaryDark">@color/cw_blue_dark</item>
+        <item name="android:statusBarColor">@color/cw_blue_darker</item>
     </style>
-
-    <style name="CWActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:background">?attr/colorPrimary</item>
-    </style>
-
 </resources>

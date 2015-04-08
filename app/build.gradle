@@ -28,6 +28,5 @@ dependencies {
     compile 'com.android.support:support-v4:22.0+'
     compile 'com.android.support:appcompat-v7:22.0.0'
 
-    ////TODO: too old. should include 0.26.8.jar
-    //compile 'com.googlecode.android-query:android-query:0.25.9'
+    compile 'com.parse.bolts:bolts-android:1.2.0+'
 }

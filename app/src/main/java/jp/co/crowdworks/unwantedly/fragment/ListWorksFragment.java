@@ -2,16 +2,17 @@ package jp.co.crowdworks.unwantedly.fragment;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,11 +25,36 @@ public class ListWorksFragment extends Fragment {
     public ListWorksFragment(){}
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_listworks, container, false);
 
-        ListView list = (ListView) v.findViewById(R.id.listworks_list);
+        initializeListView(v, inflater);
+        initializeSwipeRefreshView(v, inflater);
+
+        return v;
+    }
+
+    private void initializeSwipeRefreshView(View parent, LayoutInflater inflater) {
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) parent.findViewById(R.id.listworks_swipe_refresh);
+        // 色設定
+        swipeRefreshLayout.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW);
+        // Listenerをセット
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable(){
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },5000);
+            }
+        });
+    }
+
+    private void initializeListView(View parent, final LayoutInflater inflater){
+        ListView list = (ListView) parent.findViewById(R.id.listworks_list);
 
         ArrayList<WorkItem> items = new ArrayList<WorkItem>();
 
@@ -45,9 +71,9 @@ public class ListWorksFragment extends Fragment {
                 WorkItem item = getItem(position);
 
                 View itemView = inflater.inflate(
-                                (item.full)?
-                                        R.layout.listitem_work_full : R.layout.listitem_work
-                                , parent, false);
+                        (item.full)?
+                                R.layout.listitem_work_full : R.layout.listitem_work
+                        , parent, false);
 
                 ImageView icon = (ImageView) itemView.findViewById(R.id.listitem_work_icon);
                 icon.setImageDrawable(item.icon);
@@ -62,8 +88,6 @@ public class ListWorksFragment extends Fragment {
             }
         };
         list.setAdapter(adapter);
-
-        return v;
     }
 
     private static class WorkItem {
