@@ -1,5 +1,7 @@
-package jp.co.crowdworks.unwantedly;
+package jp.co.crowdworks.unwantedly.activity;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -27,6 +29,15 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0: return "WORKS";
             case 1: return "???";
+            default:
+                return null;
+        }
+    }
+
+    public Drawable getIcon(Resources res, int position) {
+        switch (position){
+            case 0: return res.getDrawable(android.R.drawable.ic_dialog_alert);
+            case 1: return res.getDrawable(android.R.drawable.ic_dialog_info);
             default:
                 return null;
         }
