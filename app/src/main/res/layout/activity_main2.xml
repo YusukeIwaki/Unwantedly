@@ -8,13 +8,15 @@
     <!-- main -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/activity_main2_container">
     
         <android.support.v7.widget.Toolbar
             android:id="@+id/activity_main2_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar"
             style="@style/CWActionBar" />
     
         <jp.co.crowdworks.unwantedly.view.SlidingImageTabLayout

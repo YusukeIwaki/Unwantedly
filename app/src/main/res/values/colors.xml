@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="cw_blue">#FF2473C5</color>
-    <color name="cw_blue_dark">#FF0072C4</color>
-    <color name="cw_blue_darker">#FF00406D</color>
+    <color name="cw_blue_primary_light">#FFB3E5FC</color>
+    <color name="cw_blue_primary">#FF03A9F4</color>
+    <color name="cw_blue_primary_dark">#FF0288D1</color>
+    <color name="cw_blue_subject_text">#FFFFFFFF</color>
+
+    <color name="cw_accent">#FFCDDC39</color>
+
+    <color name="cw_important_text">#FF000000</color>
+    <color name="cw_primary_text">#DD000000</color>
+    <color name="cw_secondary_text">#88000000</color>
+    <color name="cw_disabled_text">#42000000</color>
+    <color name="cw_divider">#1e000000</color>
+
 </resources>
