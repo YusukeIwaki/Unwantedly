@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import hugo.weaving.DebugLog;
 import jp.co.crowdworks.unwantedly.R;
 
 
 public class ListWorksFragment extends Fragment {
+    private static final String TAG = ListWorksFragment.class.getName();
+
     public ListWorksFragment(){}
 
     @Override

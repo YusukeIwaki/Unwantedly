@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import jp.co.crowdworks.unwantedly.activity.MainPagerAdapter;
+import jp.co.crowdworks.unwantedly.fragment.MainPagerAdapter;
 import jp.co.crowdworks.unwantedly.R;
 
 public class SlidingImageTabLayout extends SlidingTabLayout{

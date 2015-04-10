@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -15,8 +16,8 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import hugo.weaving.DebugLog;
 import jp.co.crowdworks.unwantedly.R;
-import jp.co.crowdworks.unwantedly.log.DebugLog;
 
 public class LoginFragment extends Fragment {
 
@@ -27,19 +28,19 @@ public class LoginFragment extends Fragment {
     public LoginFragment(){
     }
 
-    @DebugLog
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
         initializeFacebookButton(v, inflater);
+        initializeDammyButton(v, inflater);
         return v;
     }
 
     private void showMainPage() {
         getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new MainFragment())
+                .replace(R.id.content, new MainFragment())
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
     }
@@ -71,17 +72,19 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    @DebugLog
+    private void initializeDammyButton(View parent, LayoutInflater inflater) {
+        final Button dammy = (Button) parent.findViewById(R.id.dammy_login_button);
+        dammy.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMainPage();
+            }
+        });
+    }
+
     @Override
     public void onActivityResult(int req, int res, Intent data){
         super.onActivityResult(req, res, data);
         if (mFBCallbackManager != null) mFBCallbackManager.onActivityResult(req, res, data);
     }
-
-    @DebugLog
-    @Override
-    public void onDestroyView(){
-        super.onDestroyView();
-    }
-
 }

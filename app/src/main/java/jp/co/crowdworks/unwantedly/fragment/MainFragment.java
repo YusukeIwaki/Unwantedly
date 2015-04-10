@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,18 +20,17 @@ import android.widget.ListView;
 
 import com.facebook.appevents.AppEventsLogger;
 
+import hugo.weaving.DebugLog;
 import jp.co.crowdworks.unwantedly.R;
-import jp.co.crowdworks.unwantedly.activity.MainPagerAdapter;
 import jp.co.crowdworks.unwantedly.api.FacebookApiManager;
-import jp.co.crowdworks.unwantedly.log.DebugLog;
 import jp.co.crowdworks.unwantedly.view.SlidingImageTabLayout;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment {
-
+public class MainFragment extends Fragment implements OnBackPressedListener {
+    private static final String TAG = MainFragment.class.getName();
 
     ActionBarDrawerToggle mDrawerToggle;
 
@@ -41,13 +41,13 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_main2, container, false);
+        View root = inflater.inflate(R.layout.fragment_main, container, false);
 
-        ViewPager viewPager = (ViewPager) root.findViewById(R.id.activity_main2_viewpager);
+        ViewPager viewPager = (ViewPager) root.findViewById(R.id.fragment_main_viewpager);
         MainPagerAdapter fragmentPagerAdapter = new MainPagerAdapter(getFragmentManager());
         viewPager.setAdapter(fragmentPagerAdapter);
 
-        SlidingImageTabLayout slidingTab = (SlidingImageTabLayout) root.findViewById(R.id.activity_main2_slidingtab);
+        SlidingImageTabLayout slidingTab = (SlidingImageTabLayout) root.findViewById(R.id.fragment_main_slidingtab);
         slidingTab.setDistributeEvenly(true);
         slidingTab.setViewPager(viewPager);
 
@@ -58,13 +58,29 @@ public class MainFragment extends Fragment {
     }
 
     private void initializeToolbar(View root) {
-        Toolbar toolbar = (Toolbar) root.findViewById(R.id.activity_main2_toolbar);
+        Toolbar toolbar = (Toolbar) root.findViewById(R.id.fragment_main_toolbar);
         ((ActionBarActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "toolbar clicked");
+                final View root = v.getRootView();
+                final DrawerLayout drawer = (DrawerLayout) root.findViewById(R.id.fragment_main_drawer);
+                final ListView menuList = (ListView) root.findViewById(R.id.fragment_main_slide_menu);
+
+                if (drawer==null || menuList==null) return;
+                if(!drawer.isEnabled()
+                //TODO: || !drawer.isActivated()
+                        || drawer.isDrawerOpen(menuList)) return;
+
+                drawer.openDrawer(menuList);
+            }
+        });
     }
 
     private void initializeDrawer(View root) {
-        final DrawerLayout drawer = (DrawerLayout) root.findViewById(R.id.activity_main2_drawer);
-        final ListView menuList = (ListView) root.findViewById(R.id.activity_main2_slide_menu);
+        final DrawerLayout drawer = (DrawerLayout) root.findViewById(R.id.fragment_main_drawer);
+        final ListView menuList = (ListView) root.findViewById(R.id.fragment_main_slide_menu);
         ActionBarActivity activity = getActionBarActivity();
 
         menuList.setAdapter(new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, new String[]{"hoge", "fuga", "piyo"}));
@@ -75,7 +91,7 @@ public class MainFragment extends Fragment {
                 FacebookApiManager.getsInstance().logout();
 
                 getFragmentManager().beginTransaction()
-                        .replace(android.R.id.content, new LoginFragment())
+                        .replace(R.id.content, new LoginFragment())
                         .commit();
             }
         });
@@ -88,11 +104,13 @@ public class MainFragment extends Fragment {
 
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     private ActionBarActivity getActionBarActivity(){
-        return (ActionBarActivity) super.getActivity();
+        return (ActionBarActivity) getActivity();
     }
+
 
     @DebugLog
     @Override
@@ -130,10 +148,20 @@ public class MainFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+
     @DebugLog
     @Override
-    public void onDestroyView(){
-        super.onDestroyView();
-    }
+    public boolean onBackPressed() {
+        final ActionBarActivity root = getActionBarActivity();
+        final DrawerLayout drawer = (DrawerLayout) root.findViewById(R.id.fragment_main_drawer);
+        final ListView menuList = (ListView) root.findViewById(R.id.fragment_main_slide_menu);
 
+        if (drawer==null || menuList==null) return false;
+        if(!drawer.isEnabled()
+                //TODO: || !drawer.isActivated()
+                || !drawer.isDrawerOpen(menuList)) return false;
+
+        drawer.closeDrawer(menuList);
+        return true;
+    }
 }

@@ -1,4 +1,4 @@
-package jp.co.crowdworks.unwantedly.activity;
+package jp.co.crowdworks.unwantedly.fragment;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import hugo.weaving.DebugLog;
 import jp.co.crowdworks.unwantedly.fragment.ListWorksFragment;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {

@@ -1,7 +1,7 @@
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_main2_drawer"
+    android:id="@+id/fragment_main_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -9,10 +9,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/activity_main2_container">
+        android:id="@+id/fragment_main_container">
     
         <android.support.v7.widget.Toolbar
-            android:id="@+id/activity_main2_toolbar"
+            android:id="@+id/fragment_main_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -20,23 +20,23 @@
             style="@style/CWActionBar" />
     
         <jp.co.crowdworks.unwantedly.view.SlidingImageTabLayout
-            android:id="@+id/activity_main2_slidingtab"
+            android:id="@+id/fragment_main_slidingtab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/activity_main2_toolbar"/>
+            android:layout_below="@+id/fragment_main_toolbar"/>
     
         <android.support.v4.view.ViewPager
-            android:id="@+id/activity_main2_viewpager"
+            android:id="@+id/fragment_main_viewpager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_below="@+id/activity_main2_slidingtab"/>
+            android:layout_below="@+id/fragment_main_slidingtab"/>
     
     </RelativeLayout>
     
     <!-- drawer menu -->
     <ListView
-        android:id="@+id/activity_main2_slide_menu"
+        android:id="@+id/fragment_main_slide_menu"
         android:layout_width="180dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
