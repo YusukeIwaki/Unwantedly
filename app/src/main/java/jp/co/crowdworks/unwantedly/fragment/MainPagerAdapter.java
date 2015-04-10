@@ -6,8 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import hugo.weaving.DebugLog;
-import jp.co.crowdworks.unwantedly.fragment.ListWorksFragment;
+import jp.co.crowdworks.unwantedly.fragment.tab.ListWorksFragment;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
