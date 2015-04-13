@@ -1,12 +1,28 @@
 <android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/listworks_swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ListView
-        android:id="@+id/listworks_list"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listworks_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/pink_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_icon="@drawable/ic_action_search"
+            fab:fab_colorNormal="@color/cw_accent"
+            fab:fab_colorPressed="@color/cw_accent_light"
+            android:layout_gravity="right|bottom"
+            android:layout_margin="24dp" />
+    </FrameLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

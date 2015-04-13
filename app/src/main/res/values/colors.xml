@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="cw_blue_primary_light">#FFB3E5FC</color>
-    <color name="cw_blue_primary">#FF03A9F4</color>
-    <color name="cw_blue_primary_dark">#FF0288D1</color>
+    <!-- デザインGrpからもらったカラースキーム -->
+    <color name="cw_normal_50">#FFCFF4FF</color>
+    <color name="cw_normal_100">#FF9FDFFF</color>
+    <color name="cw_normal_200">#FF83D0FF</color>
+    <color name="cw_normal_300">#FF62B6F4</color>
+    <color name="cw_normal_400">#FF4092DD</color>
+    <color name="cw_normal_500">#FF2473C5</color>
+    <color name="cw_normal_600">#FF1464AD</color>
+    <color name="cw_normal_700">#FF1B5796</color>
+    <color name="cw_normal_800">#FF004985</color>
+    <color name="cw_normal_900">#FF003C6D</color>
+    <color name="cw_accent_A100">#FFFFA310</color>
+    <color name="cw_accent_A200">#FFFF850C</color>
+    <color name="cw_accent_A400">#FFFF740D</color>
+    <color name="cw_accent_A700">#FFFF6510</color>
+
+    <!-- マテリアルカラー定義 -->
+    <color name="cw_blue_primary_light">@color/cw_normal_100</color>
+    <color name="cw_blue_primary">@color/cw_normal_500</color>
+    <color name="cw_blue_primary_dark">@color/cw_normal_700</color>
+    <color name="cw_accent_light">@color/cw_accent_A100</color>
+    <color name="cw_accent">@color/cw_accent_A400</color>
+
+    <!-- アクションバー専用 -->
     <color name="cw_blue_subject_text">#FFFFFFFF</color>
 
-    <color name="cw_accent">#FFCDDC39</color>
 
     <color name="cw_important_text">#FF000000</color>
     <color name="cw_primary_text">#DD000000</color>
