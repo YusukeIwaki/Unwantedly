@@ -13,6 +13,7 @@ import hugo.weaving.DebugLog;
 public class AuthUtil {
     private static final String TAG = AuthUtil.class.getName();
     public static final String ACCOUNT_TYPE = "jp.co.crowdworks.unwantedly";
+    public static final String AUTHORITY = "jp.co.crowdworks.unwantedly";
 
     public static Account newAccount(String username) {
         Account newAccount = new Account(username, ACCOUNT_TYPE);

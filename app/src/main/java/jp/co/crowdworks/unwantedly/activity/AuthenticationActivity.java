@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -23,7 +24,6 @@ import jp.co.crowdworks.unwantedly.account.AuthUtil;
 
 public class AuthenticationActivity extends AccountAuthenticatorActivity {
     private static final String TAG=AuthenticationActivity.class.getName();
-    public static final String AUTHORITY = "jp.co.crowdworks.unwantedly";
 
     private Account mAccount;
 
@@ -33,6 +33,7 @@ public class AuthenticationActivity extends AccountAuthenticatorActivity {
 
         if(AuthUtil.hasAccount(this)){
             Toast.makeText(this,"Account already exists",Toast.LENGTH_SHORT).show();
+            setAccountAuthenticatorResult(null);
             setResult(RESULT_CANCELED);
             finish();
             return;
@@ -50,13 +51,19 @@ public class AuthenticationActivity extends AccountAuthenticatorActivity {
             public Object then(Task<String> task) throws Exception {
                 Account newAccount = AuthUtil.newAccount(info.username);
                 AccountManager am = AccountManager.get(AuthenticationActivity.this);
-                am.addAccountExplicitly(newAccount, info.password, null);
+                if (am.addAccountExplicitly(newAccount, info.password, null)) {
+                    ContentResolver.setSyncAutomatically(newAccount, AuthUtil.AUTHORITY, true);
+                    ContentResolver.addPeriodicSync(newAccount, AuthUtil.AUTHORITY, new Bundle(), 60);//every minite.
 
-                final Intent intent = new Intent();
-                intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, info.username);
-                intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, AuthUtil.ACCOUNT_TYPE);
-                setAccountAuthenticatorResult(intent.getExtras());
-                setResult(RESULT_OK, intent);
+                    final Intent intent = new Intent();
+                    intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, info.username);
+                    intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, AuthUtil.ACCOUNT_TYPE);
+                    setAccountAuthenticatorResult(intent.getExtras());
+                    setResult(RESULT_OK, intent);
+                } else {
+                    setAccountAuthenticatorResult(null);
+                    setResult(RESULT_CANCELED);
+                }
                 finish();
                 return null;
             }
@@ -89,13 +96,20 @@ public class AuthenticationActivity extends AccountAuthenticatorActivity {
                         if (token != null) {
                             Account newAccount = AuthUtil.newAccount(info.username);
                             AccountManager am = AccountManager.get(AuthenticationActivity.this);
-                            am.addAccountExplicitly(newAccount, info.password, null);
+                            if(am.addAccountExplicitly(newAccount, info.password, null)){
+                                ContentResolver.setSyncAutomatically(newAccount, AuthUtil.AUTHORITY, true);
+                                ContentResolver.addPeriodicSync(newAccount, AuthUtil.AUTHORITY, new Bundle(), 60);//every minite.
 
-                            final Intent intent = new Intent();
-                            intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, info.username);
-                            intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, AuthUtil.ACCOUNT_TYPE);
-                            setAccountAuthenticatorResult(intent.getExtras());
-                            setResult(RESULT_OK, intent);
+                                final Intent intent = new Intent();
+                                intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, info.username);
+                                intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, AuthUtil.ACCOUNT_TYPE);
+                                setAccountAuthenticatorResult(intent.getExtras());
+                                setResult(RESULT_OK, intent);
+                            }
+                            else{
+                                setAccountAuthenticatorResult(null);
+                                setResult(RESULT_CANCELED);
+                            }
                             finish();
                         }
                         return null;
